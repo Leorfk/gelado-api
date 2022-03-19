@@ -1,73 +1,91 @@
-CREATE DATABASE GELADO;
-USE GELADO;
-CREATE TABLE IF NOT EXISTS TBL_ROLES
+drop database if exists gelado;
+
+create database if not exists gelado;
+use gelado;
+create table if not exists user_role
 (
-    ID_ROLE INTEGER PRIMARY KEY AUTO_INCREMENT,
-    TEXTO_ROLE VARCHAR(100)
+    id_role integer primary key,
+    texto_role varchar(100) unique
 );
-CREATE TABLE IF NOT EXISTS USUARIOS
+create table if not exists usuario
 (
-    ID_USUARIO INTEGER PRIMARY KEY AUTO_INCREMENT,
-    EMAIL VARCHAR(100),
-    SENHA VARCHAR(1000),
-    ID_ROLE INTEGER
+    id_usuario integer primary key auto_increment,
+    email varchar(100),
+    senha varchar(1000),
+    role_id integer
 );
 
-CREATE TABLE IF NOT EXISTS CLIENTES
+create table if not exists cliente
 (
-    ID_CLIENTE INTEGER PRIMARY KEY AUTO_INCREMENT,
-    NOME VARCHAR(200),
-    CPF_CNPJ VARCHAR(14),
-    ID_USUARIO INTEGER
+    id_cliente integer primary key auto_increment,
+    nome varchar(200),
+    cpf_cnpj varchar(14),
+    usuario_id integer
 );
 
-CREATE TABLE IF NOT EXISTS TELEFONES
+create table if not exists telefone
 (
-    ID_TELEFONE INTEGER PRIMARY KEY AUTO_INCREMENT,
-    NUMERO_TELEFONE VARCHAR(14),
-    ID_CLIENTE INTEGER
+    id_telefone integer primary key auto_increment,
+    numero_telefone varchar(14),
+    cliente_id integer
 );
 
-CREATE TABLE IF NOT EXISTS ENDERECOS
+create table if not exists endereco
 (
-    ID_ENDERECO INTEGER PRIMARY KEY AUTO_INCREMENT,
-    MUNICIPIO VARCHAR(100),
-    BAIRRO VARCHAR(100),
-    NOME_RUA VARCHAR(100),
-    NUMERO INTEGER,
-    CEP VARCHAR(9),
-    ID_USUARIO INTEGER
+    id_endereco integer primary key auto_increment,
+    municipio varchar(100),
+    bairro varchar(100),
+    nome_rua varchar(100),
+    numero integer,
+    cep varchar(9),
+    cliente_id integer
 );
 
-CREATE TABLE IF NOT EXISTS PEDIDOS
+create table if not exists pedido
 (
-    ID_PEDIDO INTEGER PRIMARY KEY AUTO_INCREMENT,
-    DATA_PEDIDO TIMESTAMP,
-    ID_CLIENTE INTEGER
+    id_pedido integer primary key auto_increment,
+    data_pedido timestamp,
+    cliente_id integer
 );
 
-CREATE TABLE IF NOT EXISTS ITENS_PEDIDOS
+create table if not exists item_pedido
 (
-    ID_ITEM_PEDIDO INTEGER PRIMARY KEY AUTO_INCREMENT,
-    QUANTIDADE INTEGER,
-    VALOR_ITEM_PEDIDO DECIMAL(17,2),
-    ID_PEDIDO INTEGER,
-    ID_PRODUTO INTEGER
+    id_item_pedido integer primary key auto_increment,
+    quantidade integer,
+    valor_item_pedido decimal(17,2),
+    pedido_id integer,
+    produto_id integer
 );
 
-CREATE TABLE IF NOT EXISTS PRODUTOS
+create table if not exists produto
 (
-    ID_PRODUTO INTEGER PRIMARY KEY AUTO_INCREMENT,
-    NOME VARCHAR(100),
-    PRECO DECIMAL(17,2),
-    ID_CATEGORIA INTEGER,
-    DESCRICAO VARCHAR(500)
+    produto_id integer primary key auto_increment,
+    nome varchar(100),
+    preco decimal(17,2),
+    descricao varchar(500)
+    categoria_id integer,
 );
 
-CREATE TABLE IF NOT EXISTS CATEGORIA_PRODUTO
+create table if not exists categoria_produto
 (
-    ID_CATEGORIA INTEGER PRIMARY KEY AUTO_INCREMENT,
-    NOME_CATEGORIA VARCHAR(100)
+    id_categoria integer primary key auto_increment,
+    nome_categoria varchar(100) unique
 );
 
-/*criacao as FKs*/
+/*criacao as fks*/
+
+alter table usuario add constraint fk_usuario_role foreign key (role_id) references user_role (id_role);
+
+alter table cliente add constraint fk_cliente_usuario foreign key (usuario_id) references usuario (id_usuario);
+
+alter table telefone add constraint fk_telefone_cliente foreign key (cliente_id) references cliente (id_cliente);
+
+alter table endereco add constraint fk_endereco_cliente foreign key (cliente_id) references cliente (id_cliente);
+
+alter table pedido add constraint fk_pedido_cliente foreign key (cliente_id) references cliente (id_cliente);
+
+alter table item_pedido add constraint fk_item_pedido_pedido foreign key (pedido_id) references pedido (id_pedido);
+
+alter table item_pedido add constraint fk_item_pedido_produto foreign key (produto_id) references produto (produto_id);
+
+alter table produto add constraint fk_produto_categoria foreign key (categoria_id) references categoria_produto (id_categoria);
