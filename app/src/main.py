@@ -1,24 +1,16 @@
-from models import categoria_produto_model, produto_model
+from domains.user_role import UserRole
+from models.user_role_model import User_Role
+from repositories.user_role_repository import UserRoleRepository
 import peewee
 if __name__ == '__main__':
-    pass
-    # xap = categoria_produto_model.Categoria_Produto.create(
-    #     id_categoria=1, nome_categoria='Toma_7')
-    # print(xap)
-    # toma = produto_model.Produto.create(
-    #     id_produto=None,
-    #     nome='Gulosinho',
-    #     descricao='mamada',
-    #     preco=120.00,
-    #     categoria_id=1
-    # )
-    # try:
-    #     categoria_produto_model.Categoria_Produto.create_table()
-    #     print('funfo')
-    # except peewee.OperationalError as ex:
-    #     print(ex)
-    # try:
-    #     produto_model.Produto.create_table()
-    #     print('funfo')
-    # except peewee.OperationalError as ex:
-    #     print(ex)
+    role = UserRole(70, 'XAMBRE')
+    repo = UserRoleRepository(User_Role)
+    # repo.create_user_role(role)
+    # role = repo.get_user_role_by_id(9)
+    # print(xap.id_role)
+    # print(xap.texto_role)
+    # roles = repo.get_all_user_roles()
+    # for role in roles:
+    #     print(role.id_role)
+    # repo.update_user_role(7, role)
+    # repo.delete_user_role(7)
