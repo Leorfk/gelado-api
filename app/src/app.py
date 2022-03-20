@@ -1,12 +1,15 @@
 import uvicorn
 from fastapi import FastAPI
-from controllers import app_controller
+from controllers import app_controller, usuario_controller
+
+app = FastAPI()
+
 
 def create_app():
-    fast_app = FastAPI()
-    fast_app.include_router(app_controller.router)
-    return fast_app
+    app.include_router(app_controller.router)
+    app.include_router(usuario_controller.router)
+    return app
+
 
 if __name__ == '__main__':
-    app = create_app()
     uvicorn.run('app:create_app', reload=True)
