@@ -3,8 +3,8 @@ from models.user_role_model import User_Role
 
 
 class UserRoleRepository:
-    def __init__(self, database: User_Role) -> None:
-        self.__user_role_model = database
+    def __init__(self) -> None:
+        self.__user_role_model = User_Role
     
     def update_user_role(self, id_role, user_role: UserRole) -> bool:
         new_user_role = self.get_user_role_by_id(id_role)

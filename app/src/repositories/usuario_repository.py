@@ -3,8 +3,8 @@ from models.usuario_model import Usuario
 
 class UsuarioRepository:
 
-    def __init__(self, database: Usuario) -> None:
-        self.__usuario_model = database
+    def __init__(self) -> None:
+        self.__usuario_model = Usuario
 
     def create_usuario(self):
         pass
