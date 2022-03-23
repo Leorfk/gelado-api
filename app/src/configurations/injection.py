@@ -12,7 +12,7 @@ from models import (
 
 
 class User:
-    def get(self):
+    def get_service(self):
         return user_service.UserService(
             usuario_repository.UsuarioRepository(),
             user_role_repository.UserRoleRepository())

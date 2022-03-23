@@ -1,11 +1,13 @@
 from domains.user_role import UserRole
 from models.user_role_model import User_Role
+import logging
+import peewee
 
 
 class UserRoleRepository:
     def __init__(self) -> None:
         self.__user_role_model = User_Role
-    
+
     def update_user_role(self, id_role, user_role: UserRole) -> bool:
         new_user_role = self.get_user_role_by_id(id_role)
         if new_user_role:
@@ -33,5 +35,4 @@ class UserRoleRepository:
         try:
             return self.__user_role_model.get(User_Role.id_role == id_role)
         except User_Role.DoesNotExist as ex:
-            print(f'Role com id {id_role} não localizada')
             return None
