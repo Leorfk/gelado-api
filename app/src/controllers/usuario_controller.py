@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Response, status
+from fastapi import APIRouter, Response, status, HTTPException
 from configurations.injection import User
 from domains.user_role import UserRole
 
@@ -26,3 +26,20 @@ def post(user_role: UserRole, response: Response):
 @router.put('/roles/{role_id}', status_code=204)
 def update(role_id, user_role: UserRole, response: Response):
     return 'depois'
+
+@router.delete('/roles', status_code=204)
+def delete():
+    user_service.delete_all_roles()
+
+@router.delete('/usuario', status_code=204)
+def delete_usuarios():
+    user_service.delete_all_usuarios()
+
+items = {"foo": "The Foo Wrestlers"}
+
+
+@router.get("/items/{item_id}")
+async def read_item(item_id: str):
+    if item_id not in items:
+        raise HTTPException(status_code=404, detail="Item not found")
+    return {"item": items[item_id]}

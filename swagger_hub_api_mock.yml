@@ -1,0 +1,1083 @@
+openapi: 3.0.0
+info:
+  description: |
+    Gelado, sua vida mais refrescante.
+  version: "1.0.0"
+  title: Gelado store
+  termsOfService: 'http://swagger.io/terms/'
+  contact:
+    email: leonardorodrigues_f@hotmail.com
+    name: Leonardo Rodrigues
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+servers:
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/Leorfk/gelado/1.0.0
+tags:
+  - name: user-role
+    description: operações referentes as roles de usuário
+paths:
+  '/user/role/{userRoleId}':
+    get:
+      tags:
+        - user-role
+      summary: busca a role de usuário por id
+      description: Retorna apenas uma role de usuário
+      operationId: getUserRoleById
+      parameters:
+        - name: userRoleId
+          in: path
+          description: ID da role de usuário
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Operação bem sucedida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user-role'
+        '400':
+          description: ID inválido
+        '404':
+          description: role de usuário não encontrada
+      security:
+        - api_key: []
+# Atualizar a role
+    put:
+      tags:
+        - user-role
+      summary: Atualiza da descrição de uma role existente
+      operationId: updateUserRole
+      parameters:
+      - name: userRoleId
+        in: path
+        description: ID da role de usuário
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '400':
+          description: ID inválido
+        '404':
+          description: Role de usuário não encontrada
+        '405':
+          description: Erro de validação
+        '200':
+          description: Retorna a role de usuário atualizada
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/user-role'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/user-role'
+      security:
+        - api_key: []
+  /user/role:
+    post:
+      tags:
+        - user-role
+      summary: Cria uma role de usuário
+      operationId: createUserRole
+      responses:
+        default:
+          description: Operação bem sucedida
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/user-role'
+        description: Cria uma role de usuário
+        required: true
+      security:
+      - api_key: []
+# 
+# crud usuario
+# 
+  /usuario:
+    get:
+      tags:
+        - usuario
+      summary: retorna todos os usuarios
+      description: retorna uma lista de usuários
+      operationId: getAllUsuario
+      responses:
+        '200':
+          description: Operação bem sucedida
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/usuario'
+        '400':
+          description: Id inválido
+        '404':
+          description: Usuário não encontrado
+      security:
+        - api_key: []
+    post:
+      tags:
+        - usuario
+      summary: Cria um novo usuario
+      description: Realiza o cadastro de um usuario
+      operationId: createUsuario
+      responses:
+        default:
+          description: Operação bem sucedida
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/usuario'
+        description: Usuário criado
+        required: true
+      security:
+      - api_key: []
+
+  '/usuario/{idUsuario}':
+    get:
+      tags:
+        - usuario
+      summary: Busca um usuario pelo id
+      description: Retorna apenas um usuario
+      operationId: getUsuarioById
+      parameters:
+        - name: idUsuario
+          in: path
+          description: ID do usuario
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Operação bem sucedida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/usuario'
+        '400':
+          description: Id inválido
+        '404':
+          description: usuario não encontrado
+      security:
+        - api_key: []
+# Atualizar usuario
+    put:
+      tags:
+        - usuario
+      summary: atualizada um usuario já existente
+      operationId: updateUsuario
+      parameters:
+      - name: idUsuario
+        in: path
+        description: ID do usuario
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '400':
+          description: Id inválido
+        '404':
+          description: Usuario não encontrado
+        '405':
+          description: Erro de validação
+        '200':
+          description: usuário retornado
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/usuario'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/usuario'
+      security:
+        - api_key: []
+    delete:
+      tags:
+        - usuario
+      summary: apaga um usuario
+      operationId: deleteUsuario
+      parameters:
+        - name: api_key
+          in: header
+          required: false
+          schema:
+            type: string
+        - name: idUsuario
+          in: path
+          description: ID do Usuario que será apagado
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: Usuario apagado
+        '400':
+          description: Id inválido
+        '401':
+          description: Não autorizado
+        '404':
+          description: Usuario não encontrado
+      security:
+        - api_key: []
+# 
+# crud usuario
+# 
+# 
+# crud cliente
+# 
+  /cliente:
+    get:
+      tags:
+        - cliente
+      summary: retorna todos os clientes
+      description: retorna uma lista de clientes
+      operationId: getAllcliente
+      responses:
+        '200':
+          description: Operação bem sucedida
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/cliente'
+        '400':
+          description: Id inválido
+        '404':
+          description: nenhum cliente encontrado
+      security:
+        - api_key: []
+    post:
+      tags:
+        - cliente
+      summary: cadastra um cliente
+      operationId: createcliente
+      responses:
+        default:
+          description: Operação bem sucedida
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/cliente'
+        description: Created cliente object
+        required: true
+      security:
+      - api_key: []
+
+  '/cliente/{idcliente}':
+    get:
+      tags:
+        - cliente
+      summary: busca um cliente pelo ID
+      description: retorna apenas um cliente
+      operationId: getclienteById
+      parameters:
+        - name: idcliente
+          in: path
+          description: ID do cliente que está sendo pesquisado 
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Operação bem sucedida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/cliente'
+        '400':
+          description: Id inválido
+        '404':
+          description: cliente não encontrado
+      security:
+        - api_key: []
+# Atualizar cliente
+    put:
+      tags:
+        - cliente
+      summary: atualiza um cliente já existente
+      operationId: updatecliente
+      parameters:
+      - name: idcliente
+        in: path
+        description: ID do cliente
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '400':
+          description: Id inválido
+        '404':
+          description: cliente não encontrado
+        '405':
+          description: Erro de validação
+        '200':
+          description: retorna o cliente atualizado
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/cliente'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/cliente'
+      security:
+        - api_key: []
+    delete:
+      tags:
+        - cliente
+      summary: apaga um cliente
+      operationId: deletecliente
+      parameters:
+        - name: api_key
+          in: header
+          required: false
+          schema:
+            type: string
+        - name: idcliente
+          in: path
+          description: ID do cliente que será apagado
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: cliente apagado
+        '400':
+          description: Id inválido
+        '401':
+          description: Não autorizado
+        '404':
+          description: cliente não encontrado
+      security:
+        - api_key: []
+# 
+# crud cliente
+# 
+# 
+# crud categoria-produto
+# 
+  /categoriaProduto:
+    get:
+      tags:
+        - categoria-produto
+      summary: retorna todos as categorias de produtos
+      description: retorna uma lista de categorias de produtos
+      operationId: getAllCategoriaProduto
+      responses:
+        '200':
+          description: Operação bem sucedida
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/categoria-produto'
+        '400':
+          description: Id inválido
+        '404':
+          description: nenhuma categoria de produto encontrada
+      security:
+        - api_key: []
+    post:
+      tags:
+        - categoria-produto
+      summary: cria uma categoria de produto
+      operationId: createCategoriaProduto
+      responses:
+        default:
+          description: Operação bem sucedida
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/categoria-produto'
+        description: categoria de produto criada
+        required: true
+      security:
+      - api_key: []
+
+  '/categoriaProduto/{idCategoriaProduto}':
+    get:
+      tags:
+        - categoria-produto
+      summary: busca categoria de produto pelo id
+      description: retorna apenas uma categoria de produto
+      operationId: getCategoriaProdutoById
+      parameters:
+        - name: idCategoriaProduto
+          in: path
+          description: ID da categoria de produtos que será pesquisada
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Operação bem sucedida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/categoria-produto'
+        '400':
+          description: Id inválido
+        '404':
+          description: categoria de produto não encontrado
+      security:
+        - api_key: []
+# Atualizar categoria-produto
+    put:
+      tags:
+        - categoria-produto
+      summary: atualiza uma categoria de produto
+      operationId: updatecategoriaProduto
+      parameters:
+      - name: idCategoriaProduto
+        in: path
+        description: ID da categoria de produto
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '400':
+          description: Id inválido
+        '404':
+          description: categoria de produto não encontrado
+        '405':
+          description: Erro de validação
+        '200':
+          description: retorna uma categoria de produto
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/categoria-produto'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/categoria-produto'
+      security:
+        - api_key: []
+    delete:
+      tags:
+        - categoria-produto
+      summary: deleta uma categoria de produto
+      operationId: deleteCategoriaProduto
+      parameters:
+        - name: api_key
+          in: header
+          required: false
+          schema:
+            type: string
+        - name: idCategoriaProduto
+          in: path
+          description: ID da categoria de produto 
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: categoria de produto apagada
+        '400':
+          description: Id inválido
+        '401':
+          description: Não autorizado
+        '404':
+          description: categoria de produto não encontrado
+      security:
+        - api_key: []
+# 
+# crud categoria produto
+# 
+# 
+# crud produto
+# 
+  /Produto:
+    get:
+      tags:
+        - produto
+      summary: retorna todos os produtos
+      description: retorna uma lista de produtos
+      operationId: getAllProduto
+      responses:
+        '200':
+          description: Operação bem sucedida
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/produto'
+        '400':
+          description: Id inválido
+        '404':
+          description: Produto não encontrado
+      security:
+        - api_key: []
+    post:
+      tags:
+        - produto
+      summary: cria um novo produto
+      operationId: createProduto
+      responses:
+        default:
+          description: Operação bem sucedida
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/produto'
+        description: produto criado
+        required: true
+      security:
+      - api_key: []
+
+  '/Produto/{categoriaProduto}':
+    get:
+      tags:
+        - produto
+      summary: Busca produtos pela categoria
+      description: retorna uma lista de produtos
+      operationId: getProdutoByCategoria
+      parameters:
+        - name: categoriaProduto
+          in: path
+          description: descrição da categoria de produto
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Operação bem sucedida
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/produto'
+        '400':
+          description: Id inválido
+        '404':
+          description: produtos não encontrados
+      security:
+        - api_key: []
+  '/Produto/{idProduto}':
+    get:
+      tags:
+        - produto
+      summary: busca um produto por id
+      description: retorna apenas um produto
+      operationId: getProdutoById
+      parameters:
+        - name: idProduto
+          in: path
+          description: ID do produto que está sendo pesquisado
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Operação bem sucedida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/produto'
+        '400':
+          description: Id inválido
+        '404':
+          description: produto não encontrado
+      security:
+        - api_key: []
+# Atualizar produto
+    put:
+      tags:
+        - produto
+      summary: atualiza um produto existente
+      operationId: updateprodutoById
+      parameters:
+      - name: idProduto
+        in: path
+        description: ID do produto
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '400':
+          description: Id inválido
+        '404':
+          description: produto não encontrado
+        '405':
+          description: Erro de validação
+        '200':
+          description: retorna o produto
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/produto'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/produto'
+      security:
+        - api_key: []
+    delete:
+      tags:
+        - produto
+      summary: apaga um produto
+      operationId: deleteProdutoByID
+      parameters:
+        - name: api_key
+          in: header
+          required: false
+          schema:
+            type: string
+        - name: idProduto
+          in: path
+          description: ID do produto que será apagado
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: produto apagado
+        '400':
+          description: Id inválido
+        '401':
+          description: Não autorizado
+        '404':
+          description: produto não encontrado
+      security:
+        - api_key: []
+# 
+# crud  produto
+# 
+# 
+# crud pedido
+# 
+  /pedido:
+    get:
+      tags:
+        - pedido
+      summary: retorna todos os pedidos
+      description: retorna uma lista de pedido
+      operationId: getAllPedido
+      responses:
+        '200':
+          description: Operação bem sucedida
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/pedido'
+        '400':
+          description: Id inválido
+        '404':
+          description: nenhum pedido encontrado
+      security:
+        - api_key: []
+    post:
+      tags:
+        - pedido
+      summary: cadastra um pedido
+      operationId: createpedido
+      responses:
+        default:
+          description: Operação bem sucedida
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/pedido'
+        description: criado um pedido
+        required: true
+      security:
+      - api_key: []
+
+  '/pedido/{idCliente}':
+    get:
+      tags:
+        - pedido
+      summary: busca pedido por cliente
+      description: retorna uma lista de pedidos
+      operationId: getpedidoByCliente
+      parameters:
+        - name: idCliente
+          in: path
+          description: ID do cliente
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Operação bem sucedida
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/pedido'
+        '400':
+          description: Id inválido
+        '404':
+          description: nenhum pedido encontrado
+      security:
+        - api_key: []
+  '/pedido/{idpedido}':
+    get:
+      tags:
+        - pedido
+      summary: busca pedido pelo id
+      description: retorna apenas um pedido
+      operationId: getpedidoById
+      parameters:
+        - name: idpedido
+          in: path
+          description: ID do pedido que será retornado
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Operação bem sucedida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/pedido'
+        '400':
+          description: Id inválido
+        '404':
+          description: pedido não encontrado
+      security:
+        - api_key: []
+# Atualizar pedido
+    put:
+      tags:
+        - pedido
+      summary: atualiza um pedido existente
+      operationId: update pedido
+      parameters:
+      - name: idpedido
+        in: path
+        description: ID do pedido
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '400':
+          description: Id inválido
+        '404':
+          description: pedido não encontrado
+        '405':
+          description: Erro de validação
+        '200':
+          description: pedido retornado
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/pedido'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/pedido'
+      security:
+        - api_key: []
+    delete:
+      tags:
+        - pedido
+      summary: apaga um pedido
+      operationId: deletepedido
+      parameters:
+        - name: api_key
+          in: header
+          required: false
+          schema:
+            type: string
+        - name: idpedido
+          in: path
+          description: pedido id to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: pedido deleted
+        '400':
+          description: Id inválido
+        '401':
+          description: Não autorizado
+        '404':
+          description: pedido não encontrado
+      security:
+        - api_key: []
+# 
+# crud  pedido
+# 
+# 
+# graficos de vendas
+# 
+  /dashboards/categoria:
+    get:
+      tags:
+        - dashboard-categoria
+      summary: retorna os dados de vendas por categoria
+      description: retorna uma lista de vendas por categoria
+      operationId: getAlldashboard-categoria
+      responses:
+        '200':
+          description: Operação bem sucedida
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/dashboard-categoria'
+        '400':
+          description: Id inválido
+        '404':
+          description: nenhum dado encontrado
+      security:
+        - api_key: []
+  /dashboards/produto:
+    get:
+      tags:
+        - dashboard-produto
+      summary: retorna todos os dados de vendas por produto
+      description: return uma lista de vendas por produto
+      operationId: getAlldashboardProduto
+      responses:
+        '200':
+          description: Operação bem sucedida
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/dashboard-produto'
+        '400':
+          description: Id inválido
+        '404':
+          description: nenhum dado encontrado
+      security:
+        - api_key: []
+# 
+# graficos de vendas
+# 
+externalDocs:
+  description: Find out more about Swagger
+  url: 'http://swagger.io'
+components:
+  schemas:
+# view de vendas por produto
+    dashboard-produto:
+      type: object
+      properties:
+        vendasPorProduto:
+          type: array
+          items:
+            $ref: '#/components/schemas/item-produto'
+# objeto item produto
+    item-produto:
+      type: object
+      properties:
+        quantidadeVendida:
+          type: integer
+          format: int64
+        Produto:
+          $ref: '#/components/schemas/produto'
+# view de vendas por categoria
+    dashboard-categoria:
+      type: object
+      properties:
+        vendasPorCategoria:
+          type: array
+          items:
+            $ref: '#/components/schemas/item-categoria'
+# objeto item-categoria
+    item-categoria:
+      type: object
+      properties:
+        quantidadeVendida:
+          type: integer
+          format: int64
+        categoriaProduto:
+          $ref: '#/components/schemas/categoria-produto'
+# objeto pedido
+    pedido:
+      type: object
+      properties:
+        idPedido: 
+          type: integer
+          format: int64
+        dataPedido:
+          type: string
+        cliente:
+          $ref: '#/components/schemas/cliente'
+        itens-pedido:
+          type: array
+          items:
+            $ref: '#/components/schemas/item-pedido'
+# objeto item pedido
+    item-pedido:
+      type: object
+      properties:
+        idItemPedido:
+          type: integer
+          format: int64
+        quantidade:
+          type: integer
+          format: int64
+        valorPedido:
+          type: number
+        produto:
+          $ref: '#/components/schemas/produto'
+# objeto produto
+    produto:
+      type: object
+      properties: 
+        idProduto:
+          type: integer
+          format: int64
+        nome:
+          type: string
+        preco: 
+          type: number
+        descricao:
+          type: integer
+        categoriaProduto:
+          $ref: '#/components/schemas/categoria-produto'
+# obejto categoria produto
+    categoria-produto:
+      type: object
+      properties:
+        idCategoriaProduto:
+          type: integer
+          format: int64
+        nomeCategoria:
+          type: string
+# objeto cliente
+    cliente:
+      type: object
+      properties:
+        idCliente:
+          type: integer
+          format: int64
+        nome:
+          type: string
+        cpfCnpj:
+          type: string
+        usuario:
+          $ref: '#/components/schemas/usuario'
+        telefones:
+          type: array
+          items:
+            $ref: '#/components/schemas/telefone'
+        enderecos:
+          type: array
+          items:
+            $ref: '#/components/schemas/endereco'
+# obejto telefone
+    telefone:
+      type: object
+      properties:
+        idTelefone:
+          type: integer
+          format: int64
+        numeroTelefone:
+          type: string
+# objeto endereco
+    endereco:
+      type: object
+      properties: 
+        idEndereco:
+          type: integer
+          format: int64
+        municipio:
+          type: string
+        bairro: 
+          type: string
+        nomeRua: 
+          type: string
+        cep: 
+          type: string
+        numero:
+          type: integer
+          format: int64
+# objeto usuário
+    usuario:
+      type: object
+      properties:
+        idUsuario:
+          type: integer
+          format: int64
+        email:
+          type: string
+        senha:
+          type: string
+        user_role:
+          $ref: '#/components/schemas/user-role'
+#  objeto role
+    user-role:
+      type: object
+      properties:
+        roleId:
+          type: integer
+          format: int64
+        textoRole:
+          type: string
+  requestBodies:
+    UserRole:
+      content:
+        application/json:
+          schema:
+            type: object
+            items:
+              $ref: '#/components/schemas/user-role'
+      description: User role object
+      required: true
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: api_key
+      in: header

@@ -20,7 +20,22 @@ class UserService:
 
     def create_user_role(self, user_role: UserRole):
         try:
-            self.__role_repo.create_user_role(user_role)
+            params = (user_role.id_role, user_role.texto_role)
+            self.__role_repo.insert_new_user_role(params)
+            self.__role_repo.database.commit_changes()
             return {'message': f'Role cadastrada com sucesso: {user_role.texto_role}'}
         except Exception as ex:
-            return {'error': ex.args[1]}
+            return {'error': ex.args}
+
+    def delete_all_roles(self):
+        try:
+            self.__role_repo.delete_all_user_role()
+            self.__role_repo.database.commit_changes()
+        except Exception as ex:
+            print(f'erro ao deletar as roles: {ex}')
+
+    def delete_all_usuarios(self):
+        try:
+            self.__user_repo.delete_all_usuario()
+        except Exception as ex:
+            print(f'erro ao deletar as roles: {ex}')

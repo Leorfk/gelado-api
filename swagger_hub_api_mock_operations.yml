@@ -1,0 +1,35 @@
+user_role:
+  operationId: getUserRoleById
+  operationId: updateUserRole
+  operationId: createUserRole
+usuario:
+  operationId: getUsuarioById
+  operationId: createUsuario
+  operationId: getUsuarioRoleById
+  operationId: updateUsuario
+  operationId: deleteUsuario
+cliente:
+  operationId: getClienteById
+  operationId: createClienteById
+  operationId: deleteClienteById
+  operationId: updateClienteById
+  operationId: getAllCliente
+categoria_produto:
+  operationId: getCategoriaProduto
+  operationId: createCategoriaProduto
+  operationId: deleteCategoriaProduto
+  operationId: updateCategoriaProduto
+produto:
+  operationId: getProdutoById
+  operationId: getAllProdutoByCategoria
+  operationId: getAllProduto
+  operationId: createProduto
+  operationId: updateProduto
+  operationId: deleteProduto
+pedido:
+  operationId: getAllPedido
+  operationId: getPedidoByCliente
+  operationId: getPedidoById
+  operationId: createPedido
+  operationId: updatePedido
+  operationId: deletePedido

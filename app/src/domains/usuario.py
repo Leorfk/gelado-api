@@ -1,4 +1,6 @@
-class Usuario:
+from pydantic import BaseModel
+
+class Usuario(BaseModel):
 
     def __init__(self, email, senha, role) -> None:
         self.__email = email
