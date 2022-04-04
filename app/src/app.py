@@ -1,6 +1,8 @@
 import uvicorn
 from fastapi import FastAPI
-from controllers import usuario_controller
+from controllers import (
+    user_role_controller,
+    user_controller)
 import logging
 
 logging.basicConfig(level='INFO')
@@ -8,7 +10,8 @@ app = FastAPI()
 
 
 def create_app():
-    app.include_router(usuario_controller.router)
+    app.include_router(user_role_controller.router)
+    app.include_router(user_controller.router)
     return app
 
 
