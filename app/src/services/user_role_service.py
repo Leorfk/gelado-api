@@ -26,7 +26,6 @@ class UserRoleService:
         try:
             params = (user_role.id_role, user_role.texto_role)
             self.__repository.insert_new_user_role(params)
-            self.__repository.database.commit_changes()
             return {'message': f'Role cadastrada com sucesso: {user_role.texto_role}'}
         except Exception as ex:
             return {'error': ex.args}
