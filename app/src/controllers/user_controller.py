@@ -4,7 +4,7 @@ from configurations.injection import UserRoleInjection
 from models.usuario_model import UsuarioModel
 from models.user_role_model import UserRoleModel
 
-router = APIRouter(prefix='/usuario')
+router = APIRouter(prefix='/usuario', tags=["usuario"])
 
 
 @router.get('/{id_usuario}', status_code=200)

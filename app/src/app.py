@@ -11,19 +11,33 @@ logging.basicConfig(level='DEBUG')
 app = FastAPI()
 
 
+def get_tags():
+    return [
+        {
+            'name': 'usuario',
+            'description': 'crud para usuários genéricos'
+        },
+        {
+            'name': 'user-role',
+            'description': 'roles para controle de usuário'
+        }
+    ]
+
+
 def swagger_configure():
+    app.include_router(user_role_controller.router)
+    app.include_router(user_controller.router)
     openapi_schema = get_openapi(
         title="Gelado API",
         version="1.0",
         description="Imagine uma descrição legal aqui",
         routes=app.routes,
+        tags=get_tags()
     )
     return openapi_schema
 
 
 def create_app():
-    app.include_router(user_role_controller.router)
-    app.include_router(user_controller.router)
     app.openapi_schema = swagger_configure()
     return app
 
