@@ -1,39 +1,44 @@
+from http import HTTPStatus
 from fastapi import APIRouter, Response, status, HTTPException
 from configurations.injection import UserRoleInjection
-from domains.user_role import UserRole
+from models.user_role_model import UserRoleModel
 
 router = APIRouter(prefix='/user-role')
-user_service = UserRoleInjection().get_service()
+user_role_service = UserRoleInjection().get_service()
 
 
 @router.get('/{role_id}', status_code=200)
-def get_by_id(role_id, response: Response):
-    user = user_service.get_role_by_id(role_id)
+def get_role_by_id(role_id, response: Response):
+    user = user_role_service.get_role_by_id(role_id)
     if user:
-        return user.__data__
+        return user
     response.status_code = status.HTTP_404_NOT_FOUND
     return {'mensagem': f'role com o id {role_id} não localizada'}
 
 
+@router.get('/', status_code=200)
+def get_all_roles():
+    roles = user_role_service.get_all_user_role()
+    if not roles:
+        raise HTTPException(status_code=404, detail="Nenhuma role cadastrada")
+    return roles
+
+
 @router.post('/', status_code=201)
-def post(user_role: UserRole, response: Response):
-    result = user_service.create_user_role(user_role)
+def post(user_role: UserRoleModel):
+    result = user_role_service.create_user_role(user_role)
     if result.get('error'):
-        response.status_code = status.HTTP_400_BAD_REQUEST
-        return result
+        raise HTTPException(status_code=400, detail=result)
     return result
 
-@router.put('/{role_id}', status_code=204)
-def update(role_id, user_role: UserRole, response: Response):
-    return 'depois'
 
-@router.delete('/', status_code=204)
-def delete():
-    user_service.delete_all_roles()
+@router.delete('/{role_id}', status_code=HTTPStatus.NO_CONTENT)
+def delete(role_id):
+    result = user_role_service.delete_role_by_id(role_id)
+    if not result:
+        raise HTTPException(status_code=404, detail="Role inexistente")
+    return Response(status_code=HTTPStatus.NO_CONTENT.value)
 
-@router.delete('/usuario', status_code=204)
-def delete_usuarios():
-    user_service.delete_all_usuarios()
 
 items = {"foo": "The Foo Wrestlers"}
 

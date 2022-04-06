@@ -1,6 +1,6 @@
-import peewee
-from configurations.database_connection import BaseModel
+from pydantic import BaseModel
 
-class User_Role(BaseModel):
-    id_role = peewee.PrimaryKeyField()
-    texto_role = peewee.CharField(unique=True)
+
+class UserRoleModel(BaseModel):
+    id_role: int
+    texto_role: str

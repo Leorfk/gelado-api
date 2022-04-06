@@ -5,7 +5,7 @@ from controllers import (
     user_controller)
 import logging
 
-logging.basicConfig(level='INFO')
+logging.basicConfig(level='DEBUG')
 app = FastAPI()
 
 

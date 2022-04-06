@@ -1,5 +1,5 @@
 from repositories.usuario_repository import UsuarioRepository
-from domains.user_role import UserRole
+from models.usuario_model import UsuarioModel
 
 
 class UserService:
@@ -15,16 +15,16 @@ class UserService:
         else:
             return None
 
-    def create_user_role(self, user_role: UserRole):
-        try:
-            params = (user_role.id_role, user_role.texto_role)
-            self.__role_repo.insert_new_user_role(params)
-            self.__role_repo.database.commit_changes()
-            return {'message': f'Role cadastrada com sucesso: {user_role.texto_role}'}
-        except Exception as ex:
-            return {'error': ex.args}
+    # def create_user_role(self, user_role: UserRole):
+    #     try:
+    #         params = (user_role.id_role, user_role.texto_role)
+    #         self.__role_repo.insert_new_user_role(params)
+    #         self.__role_repo.database.commit_changes()
+    #         return {'message': f'Role cadastrada com sucesso: {user_role.texto_role}'}
+    #     except Exception as ex:
+    #         return {'error': ex.args}
 
-    def delete_all_roles(self):
+    # def delete_all_roles(self):
         try:
             self.__role_repo.delete_all_user_role()
             self.__role_repo.database.commit_changes()
