@@ -17,13 +17,15 @@ class UserRoleInjection:
     def get_service(self):
         role_repository = user_role_repository.UserRoleRepository(
             database_service)
-        user = user_role_service.UserRoleService(role_repository)
-        return user
+        service = user_role_service.UserRoleService(role_repository)
+        return service
 
 
 class UserInjection:
     def get_service(self):
         user_repository = usuario_repository.UsuarioRepository(
             database_service)
-        user = user_service.UserService(user_repository)
-        return user
+        role_repository = user_role_repository.UserRoleRepository(
+            database_service)
+        service = user_service.UserService(user_repository, role_repository)
+        return service
