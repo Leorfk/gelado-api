@@ -9,9 +9,9 @@ user_role_service = UserRoleInjection().get_service()
 
 @router.get('/{role_id}', status_code=200)
 def get_role_by_id(role_id, response: Response):
-    user = user_role_service.get_role_by_id(role_id)
-    if user:
-        return user
+    role = user_role_service.get_role_by_id(role_id)
+    if role:
+        return role
     response.status_code = status.HTTP_404_NOT_FOUND
     return {'mensagem': f'role com o id {role_id} não localizada'}
 

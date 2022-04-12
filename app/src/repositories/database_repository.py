@@ -24,6 +24,15 @@ class DatabaseRepository:
             self.conn.commit()
         return result
 
+    def execute_query_with_lastrowid(self, query: str, params: tuple = None, commit=False):
+        cursor = self.conn.cursor()
+        cursor.execute(query, params)
+        result = cursor.lastrowid
+        cursor.close()
+        if commit:
+            self.conn.commit()
+        return result
+
     def execute_query_with_fetchall(self, query: str, params: tuple = None, commit=False):
         cursor = self.conn.cursor()
         cursor.execute(query, params)
