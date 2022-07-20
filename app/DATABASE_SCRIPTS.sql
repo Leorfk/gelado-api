@@ -1,3 +1,5 @@
+-- docker run -d --name gelado-mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root mysql
+
 drop database if exists gelado;
 
 create database if not exists gelado;
@@ -10,7 +12,7 @@ create table if not exists user_role
 create table if not exists usuario
 (
     id_usuario integer primary key auto_increment,
-    email varchar(100),
+    email varchar(100) unique,
     senha varchar(1000),
     role_id integer
 );
@@ -62,8 +64,8 @@ create table if not exists produto
     produto_id integer primary key auto_increment,
     nome varchar(100),
     preco decimal(17,2),
-    descricao varchar(500)
-    categoria_id integer,
+    descricao varchar(500),
+    categoria_id integer
 );
 
 create table if not exists categoria_produto

@@ -1,4 +1,4 @@
-pymysql
-peewee
-fastapi
-uvicorn
+mysql-connector-python==8.0.29
+fastapi==0.75.0
+uvicorn==0.17.6
+jinja2

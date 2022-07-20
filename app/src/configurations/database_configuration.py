@@ -7,6 +7,6 @@ class MysqlConnection:
         return mysql.connector.connect(
             host="localhost",
             user="root",
-            password="toma",
+            password="root",
             database="gelado"
         )

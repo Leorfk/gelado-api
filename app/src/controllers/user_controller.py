@@ -1,8 +1,7 @@
 from http import HTTPStatus
-from fastapi import APIRouter, Response, status, HTTPException
+from fastapi import APIRouter, Response, HTTPException
 from configurations.injection import UserInjection
 from models.usuario_model import UsuarioModel
-from models.user_role_model import UserRoleModel
 
 router = APIRouter(prefix='/usuario', tags=["usuario"])
 user_service = UserInjection().get_service()
@@ -25,17 +24,17 @@ def get_all_usuario():
     return users
 
 
-@router.post('/', status_code=201)
-def cadastrar_usuario(usuario: UsuarioModel):
-    result = user_service.create_usuario(usuario)
+@router.post('/{role_name}', status_code=201)
+def cadastrar_usuario(role_name, usuario: UsuarioModel):
+    result = user_service.criar_usuario(role_name, usuario)
     if result.get('error'):
         raise HTTPException(status_code=400, detail=result)
     return result
 
 
-@router.put('/{id_usuario}', status_code=HTTPStatus.NO_CONTENT)
-def update_usuario(id_usuario, usuario: UsuarioModel):
-    result = user_service.atualizar_usuario(id_usuario, usuario)
+@router.put('/', status_code=HTTPStatus.NO_CONTENT)
+def update_usuario(id_usuario: int, role_name: str, usuario: UsuarioModel):
+    result = user_service.atualizar_usuario(id_usuario, role_name, usuario)
     if not result:
         return Response(status_code=HTTPStatus.NO_CONTENT.value)
     elif result.get('warnning'):

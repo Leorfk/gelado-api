@@ -25,7 +25,7 @@ def get_all_roles():
 
 
 @router.post('/', status_code=201)
-def post(user_role: UserRoleModel):
+def criar_role(user_role: UserRoleModel):
     result = user_role_service.create_user_role(user_role)
     if result.get('error'):
         raise HTTPException(status_code=400, detail=result)
@@ -33,7 +33,7 @@ def post(user_role: UserRoleModel):
 
 
 @router.delete('/{role_id}', status_code=HTTPStatus.NO_CONTENT)
-def delete(role_id):
+def deletar_role(role_id):
     result = user_role_service.delete_role_by_id(role_id)
     if not result:
         raise HTTPException(status_code=404, detail="Role inexistente")

@@ -13,6 +13,12 @@ class UserRoleRepository:
         result = self.__database.execute_query_with_fetchone(query, params)
         return result
 
+    def select_user_role_by_texto_role(self, id_role):
+        query = f'SELECT id_role, texto_role from {self.__table} WHERE texto_role = (%s)'
+        params = (id_role,)
+        result = self.__database.execute_query_with_fetchone(query, params)
+        return result
+
     def select_all_user_role(self):
         query = f'SELECT id_role, texto_role from {self.__table}'
         result = self.__database.execute_query_with_fetchall(query)
@@ -22,7 +28,8 @@ class UserRoleRepository:
         try:
             query = F'DELETE FROM {self.__table} WHERE id_role = (%s)'
             params = (id_role,)
-            result = self.__database.execute_query_with_rowcount(query, params, True)
+            result = self.__database.execute_query_with_rowcount(
+                query, params, True)
             return result
         except Exception as ex:
             print(ex)
