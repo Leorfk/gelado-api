@@ -10,6 +10,5 @@ class UsuarioViewModel(BaseModel):
 
 
 class UsuarioModel(BaseModel):
-    id_usuario: int
     email: str
     senha: str

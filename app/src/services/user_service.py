@@ -22,7 +22,7 @@ class UserService:
     def get_usuario_by_id(self, id_user):
         result = self.__user_repo.select_usuario_by_id(id_user)
         if result:
-            return self.to_model(result)
+            return self.to_view_model(result)
         else:
             return None
 

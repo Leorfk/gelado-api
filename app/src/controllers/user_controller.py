@@ -24,8 +24,8 @@ def get_all_usuario():
     return users
 
 
-@router.post('/{role_name}', status_code=201)
-def cadastrar_usuario(role_name, usuario: UsuarioModel):
+@router.post('/', status_code=201)
+def cadastrar_usuario(role_name: str, usuario: UsuarioModel):
     result = user_service.criar_usuario(role_name, usuario)
     if result.get('error'):
         raise HTTPException(status_code=400, detail=result)
@@ -43,7 +43,7 @@ def update_usuario(id_usuario: int, role_name: str, usuario: UsuarioModel):
         raise HTTPException(status_code=400, detail=result)
 
 
-@router.delete('/{id_usuario}', status_code=HTTPStatus.NO_CONTENT)
+@router.delete('/', status_code=HTTPStatus.NO_CONTENT)
 def delete_usuario(id_usuario: int):
     result = user_service.delete_usuario(id_usuario)
     if not result:
