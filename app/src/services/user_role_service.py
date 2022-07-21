@@ -1,5 +1,5 @@
 from repositories.user_role_repository import UserRoleRepository
-from models.user_role_model import UserRoleModel
+from models.usuario_model import UserRoleModel
 
 
 class UserRoleService:

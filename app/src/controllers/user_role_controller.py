@@ -1,7 +1,7 @@
 from http import HTTPStatus
 from fastapi import APIRouter, Response, status, HTTPException
 from configurations.injection import UserRoleInjection
-from models.user_role_model import UserRoleModel
+from models.usuario_model import UserRoleModel
 
 router = APIRouter(prefix='/user-role', tags=['user-role'])
 user_role_service = UserRoleInjection().get_service()

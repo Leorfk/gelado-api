@@ -2,7 +2,6 @@ import logging
 from repositories.usuario_repository import UsuarioRepository
 from repositories.user_role_repository import UserRoleRepository
 from models.usuario_model import UsuarioModel, UsuarioViewModel
-from models.user_role_model import UserRoleModel
 
 
 class UserService:
@@ -20,9 +19,9 @@ class UserService:
             return None
 
     def get_usuario_by_id(self, id_user):
-        result = self.__user_repo.select_usuario_by_id(id_user)
-        if result:
-            return self.to_view_model(result)
+        usuario = self.__user_repo.select_usuario_by_id(id_user)
+        if usuario:
+            return self.to_view_model(usuario)
         else:
             return None
 
@@ -65,10 +64,8 @@ class UserService:
         return self.__role_repository.select_user_role_by_texto_role(role_name)
 
     def to_view_model(self, result_query: tuple):
-        user_role = UserRoleModel(
-            id_role=result_query[3], texto_role=result_query[4])
         user = UsuarioViewModel(
-            id_usuario=result_query[0], email=result_query[1], senha=result_query[2], role=user_role)
+            id_usuario=result_query[0], email=result_query[1], role_id=result_query[2])
         return user
 
     def to_array_view_model(self, result_set: list):

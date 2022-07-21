@@ -6,22 +6,19 @@ class UsuarioRepository:
     def __init__(self, database: DatabaseRepository):
         self.__database = database
         self.__table_usuario = 'usuario'
-        self.__table_role = 'user_role'
 
     def select_usuario_by_id(self, id_usuario):
         query = f'''
-        SELECT id_usuario, email, senha, role_id, texto_role 
-        FROM {self.__table_usuario} INNER JOIN {self.__table_role}
-        ON (id_role = role_id) WHERE id_usuario = (%s)'''
+        SELECT id_usuario, email, role_id 
+        FROM {self.__table_usuario} WHERE id_usuario = (%s)'''
         params = (id_usuario,)
         result = self.__database.execute_query_with_fetchone(query, params)
         return result
 
     def select_all_usuario(self):
         query = f'''
-        SELECT id_usuario, email, senha, role_id, texto_role 
-        FROM {self.__table_usuario} INNER JOIN {self.__table_role}
-        ON (id_role = role_id)'''
+        SELECT id_usuario, email, role_id 
+        FROM {self.__table_usuario}'''
         result = self.__database.execute_query_with_fetchall(query)
         return result
 
@@ -43,7 +40,8 @@ class UsuarioRepository:
     def delete_usuario_by_id(self, user_id):
         query = f'DELETE FROM {self.__table_usuario} WHERE id_usuario = (%s)'
         params = (user_id,)
-        result = self.__database.execute_query_with_rowcount(query, params, True)
+        result = self.__database.execute_query_with_rowcount(
+            query, params, True)
         return result
 
     def delete_all_usuario(self):

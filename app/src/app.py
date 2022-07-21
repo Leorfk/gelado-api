@@ -1,7 +1,7 @@
 # https://fastapi.tiangolo.com/tutorial/security/oauth2-jwt/
 import uvicorn
 from fastapi import FastAPI
-from controllers import (user_role_controller, user_controller)
+from controllers import (user_role_controller, user_controller, cliente_controller)
 import logging
 from fastapi.openapi.utils import get_openapi
 
@@ -19,6 +19,10 @@ def get_tags():
         {
             'name': 'user-role',
             'description': 'roles para controle de usuário'
+        },
+        {
+            'name': 'cliente',
+            'description': 'fluxo para cadastro e consulta de usuários'
         }
     ]
 
@@ -26,6 +30,7 @@ def get_tags():
 def swagger_configure():
     app.include_router(user_role_controller.router)
     app.include_router(user_controller.router)
+    app.include_router(cliente_controller.router)
     openapi_schema = get_openapi(
         title="Gelado API",
         version="1.0",

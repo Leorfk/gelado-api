@@ -29,7 +29,7 @@ create table if not exists telefone
 (
     id_telefone integer primary key auto_increment,
     numero_telefone varchar(14),
-    cliente_id integer
+    usuario_id integer
 );
 
 create table if not exists endereco
@@ -40,14 +40,14 @@ create table if not exists endereco
     nome_rua varchar(100),
     numero integer,
     cep varchar(9),
-    cliente_id integer
+    usuario_id integer
 );
 
 create table if not exists pedido
 (
     id_pedido integer primary key auto_increment,
     data_pedido timestamp,
-    cliente_id integer
+    usuario_id integer
 );
 
 create table if not exists item_pedido
@@ -80,11 +80,11 @@ alter table usuario add constraint fk_usuario_role foreign key (role_id) referen
 
 alter table cliente add constraint fk_cliente_usuario foreign key (usuario_id) references usuario (id_usuario);
 
-alter table telefone add constraint fk_telefone_cliente foreign key (cliente_id) references cliente (id_cliente);
+alter table telefone add constraint fk_telefone_cliente foreign key (usuario_id) references cliente (id_cliente);
 
-alter table endereco add constraint fk_endereco_cliente foreign key (cliente_id) references cliente (id_cliente);
+alter table endereco add constraint fk_endereco_cliente foreign key (usuario_id) references cliente (id_cliente);
 
-alter table pedido add constraint fk_pedido_cliente foreign key (cliente_id) references cliente (id_cliente);
+alter table pedido add constraint fk_pedido_cliente foreign key (usuario_id) references cliente (id_cliente);
 
 alter table item_pedido add constraint fk_item_pedido_pedido foreign key (pedido_id) references pedido (id_pedido);
 
