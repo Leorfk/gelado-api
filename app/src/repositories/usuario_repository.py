@@ -1,10 +1,6 @@
-from repositories.database_repository import DatabaseRepository
-
-
 class UsuarioRepository:
 
-    def __init__(self, database: DatabaseRepository):
-        self.__database = database
+    def __init__(self):
         self.__table_usuario = 'usuario'
 
     def select_usuario_by_id(self, id_usuario):
@@ -12,37 +8,33 @@ class UsuarioRepository:
         SELECT id_usuario, email, role_id 
         FROM {self.__table_usuario} WHERE id_usuario = (%s)'''
         params = (id_usuario,)
-        result = self.__database.execute_query_with_fetchone(query, params)
-        return result
+        # result = self._execute_query_with_fetchone(query, params)
+        return query, params
 
     def select_all_usuario(self):
         query = f'''
         SELECT id_usuario, email, role_id 
         FROM {self.__table_usuario}'''
-        result = self.__database.execute_query_with_fetchall(query)
-        return result
+        # result = self._execute_query_with_fetchall(query)
+        return query
 
-    def insert_new_usuario(self, params: tuple):
+    def insert_new_usuario(self, usuario, role_id):
         query = f'INSERT INTO {self.__table_usuario} (email, senha, role_id) VALUES (%s, %s, %s)'
-        user_id = self.__database.execute_query_with_lastrowid(
-            query, params, True)
-        return user_id
+        params = (usuario.email, usuario.senha, role_id)
+        # user_id = self._execute_query_with_lastrowid(query, params, True)
+        return query, params
 
-    def update_usuario_by_id(self, params: tuple):
+    def update_usuario_by_id(self, usuario, role_id, user_id):
         query = f'''
         UPDATE {self.__table_usuario} SET
         email = (%s), senha = (%s), role_id = (%s)
         WHERE id_usuario = (%s);'''
-        result = self.__database.execute_query_with_rowcount(
-            query, params, True)
-        return result
+        params = (usuario.email, usuario.senha, role_id, user_id)
+        return query, params
 
     def delete_usuario_by_id(self, user_id):
         query = f'DELETE FROM {self.__table_usuario} WHERE id_usuario = (%s)'
         params = (user_id,)
-        result = self.__database.execute_query_with_rowcount(
-            query, params, True)
-        return result
+        # result = self._execute_query_with_rowcount(query, params, True)
+        return query, params
 
-    def delete_all_usuario(self):
-        self.__database.delete_any(self.__table_usuario)
