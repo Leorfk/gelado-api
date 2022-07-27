@@ -2,7 +2,7 @@ import logging
 from repositories.usuario_repository import UsuarioRepository
 from repositories.user_role_repository import UserRoleRepository
 from models.usuario_model import UsuarioModel, UsuarioViewModel
-from configurations.database_configuration import MysqlConnection
+from repositories.database_repository import MysqlConnection
 
 
 class UserService:

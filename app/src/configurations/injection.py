@@ -12,8 +12,7 @@ from services import (
     cliente_service,
     cliente_cadastral_service
 )
-from configurations.database_configuration import MysqlConnection
-conn = MysqlConnection()
+conn = database_repository.MysqlConnection()
 role_repo = user_role_repository.UserRoleRepository()
 user_repo = usuario_repository.UsuarioRepository()
 client_repo = cliente_repository.ClienteRepository()
