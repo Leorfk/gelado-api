@@ -7,11 +7,10 @@ from repositories.database_repository import MysqlConnection
 
 class UserService:
 
-    def __init__(self,
-                 user_repository: UsuarioRepository, role_repository: UserRoleRepository, db_conn: MysqlConnection) -> None:
+    def __init__(self, db_conn: MysqlConnection, user_repository: UsuarioRepository, role_repository: UserRoleRepository) -> None:
+        self.__db = db_conn
         self.__user_repo = user_repository
         self.__role_repository = role_repository
-        self.__db = db_conn
 
     def get_all_usuario(self):
         try:

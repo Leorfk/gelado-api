@@ -1,3 +1,6 @@
+from models.usuario_model import ClienteModel
+
+
 class ClienteRepository:
 
     def __init__(self):
@@ -18,7 +21,8 @@ class ClienteRepository:
         # result = self._execute_query_with_fetchall(query)
         return query
 
-    def insert_new_cliente(self, params: tuple):
+    def insert_new_cliente(self, cliente: ClienteModel, id_usuario):
+        params = (cliente.nome, cliente.cpf_cnpj, id_usuario)
         query = f'INSERT INTO {self.__table_cliente} (nome, cpf_cnpj, usuario_id) VALUES (%s, %s, %s)'
         # user_id = self._execute_query_with_lastrowid(query, params, False)
         return query, params

@@ -8,7 +8,7 @@ class UserRoleRepository:
         params = (id_role,)
         return query, params
 
-    def select_user_role_by_texto_role(self, role):
+    def select_user_role_by_texto_role(self, role: str):
         query = f'SELECT id_role, texto_role from {self.__table} WHERE texto_role = (%s)'
         params = (role,)
         return query, params

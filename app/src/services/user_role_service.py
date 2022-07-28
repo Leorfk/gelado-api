@@ -5,10 +5,9 @@ from repositories.database_repository import MysqlConnection
 
 class UserRoleService:
 
-    def __init__(self,
-                 user_repository: UserRoleRepository, db_conn: MysqlConnection) -> None:
-        self.__repository = user_repository
+    def __init__(self, db_conn: MysqlConnection, user_repository: UserRoleRepository) -> None:
         self.__db = db_conn
+        self.__repository = user_repository
 
     def get_role_by_id(self, role_id):
         try:

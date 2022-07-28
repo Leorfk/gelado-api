@@ -1,8 +1,7 @@
 # https://fastapi.tiangolo.com/tutorial/security/oauth2-jwt/
 import uvicorn
 from fastapi import FastAPI
-from controllers import (user_role_controller,
-                         user_controller, cliente_controller)
+from controllers import (user_role_controller, user_controller, cliente_controller)
 import logging
 from fastapi.openapi.utils import get_openapi
 

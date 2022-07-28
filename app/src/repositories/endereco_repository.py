@@ -1,3 +1,4 @@
+from models.usuario_model import EnderecoModel
 class EnderecoRepository:
 
     def __init__(self):
@@ -19,7 +20,14 @@ class EnderecoRepository:
         # result = self._execute_query_with_fetchall(query)
         return query
 
-    def insert_new_endereco(self, params: tuple):
+    def insert_new_endereco(self, endereco_model: EnderecoModel, user_id):
+        params = (
+            endereco_model.municipio,
+            endereco_model.bairro,
+            endereco_model.nome_rua,
+            endereco_model.numero,
+            endereco_model.cep,
+            user_id)
         query = f'''INSERT INTO {self.__table_endereco} 
         (municipio, bairro, nome_rua, numero, cep, usuario_id) 
         VALUES (%s, %s, %s, %s, %s, %s)'''

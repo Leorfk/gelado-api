@@ -1,3 +1,4 @@
+from models.usuario_model import UsuarioModel
 class UsuarioRepository:
 
     def __init__(self):
@@ -18,13 +19,13 @@ class UsuarioRepository:
         # result = self._execute_query_with_fetchall(query)
         return query
 
-    def insert_new_usuario(self, usuario, role_id):
+    def insert_new_usuario(self, usuario: UsuarioModel, role_id):
         query = f'INSERT INTO {self.__table_usuario} (email, senha, role_id) VALUES (%s, %s, %s)'
         params = (usuario.email, usuario.senha, role_id)
         # user_id = self._execute_query_with_lastrowid(query, params, True)
         return query, params
 
-    def update_usuario_by_id(self, usuario, role_id, user_id):
+    def update_usuario_by_id(self, usuario: UsuarioModel, role_id, user_id):
         query = f'''
         UPDATE {self.__table_usuario} SET
         email = (%s), senha = (%s), role_id = (%s)

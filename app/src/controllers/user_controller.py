@@ -1,10 +1,14 @@
 from http import HTTPStatus
 from fastapi import APIRouter, Response, HTTPException
-from configurations.injection import UserInjection
+
 from models.usuario_model import UsuarioModel
 
+from repositories.user_role_repository import UserRoleRepository
+from repositories.usuario_repository import UsuarioRepository
+from repositories.database_repository import MysqlConnection
+from services.user_service import UserService
 router = APIRouter(prefix='/usuario', tags=["usuario"])
-user_service = UserInjection().get_service()
+user_service = UserService(MysqlConnection(), UsuarioRepository(), UserRoleRepository())
 
 
 @router.get('/{id_usuario}', status_code=200)

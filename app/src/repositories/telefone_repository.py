@@ -1,13 +1,14 @@
+from models.usuario_model import TelefoneModel
 class TelefoneRepository:
 
     def __init__(self):
         self.__table_telefone = 'telefone'
 
-    def select_telefone_by_usuario_id(self, id_usuario):
+    def select_telefone_by_usuario_id(self, user_id):
         query = f'''
         SELECT id_telefone, numero_telefone, usuario_id
         FROM {self.__table_telefone} WHERE usuario_id = (%s)'''
-        params = (id_usuario,)
+        params = (user_id,)
         # result = self._execute_query_with_fetchone(query, params)
         return query, params
 
@@ -18,7 +19,8 @@ class TelefoneRepository:
         # result = self._execute_query_with_fetchall(query)
         return query
 
-    def insert_new_telefone(self, params: tuple):
+    def insert_new_telefone(self, telefone_model: TelefoneModel, user_id):
+        params = (telefone_model.numero_telefone, user_id)
         query = f'INSERT INTO {self.__table_telefone} (numero_telefone, usuario_id) VALUES (%s, %s)'
         # user_id = self._execute_query_with_lastrowid(query, params, False)
         return query, params

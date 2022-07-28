@@ -22,7 +22,7 @@ create table if not exists cliente
     id_cliente integer primary key auto_increment,
     nome varchar(200),
     cpf_cnpj varchar(14),
-    usuario_id integer
+    usuario_id integer unique
 );
 
 create table if not exists telefone
@@ -40,7 +40,7 @@ create table if not exists endereco
     nome_rua varchar(100),
     numero integer,
     cep varchar(9),
-    usuario_id integer
+    usuario_id integer unique
 );
 
 create table if not exists pedido
